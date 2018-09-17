@@ -13,6 +13,7 @@ import org.opencv.videoio.VideoCapture;
 public class Snapshot {
     private String saveFile;
     private VideoCapture webSource = null;
+    private int count;
 
     private Mat frame = new Mat();
 
@@ -21,8 +22,7 @@ public class Snapshot {
         webSource = new VideoCapture(0);
     }
 
-    public int takeSnapshot(int count) {
-        System.out.println("tady");
+    public void takeShot() {
         if (webSource.grab()) {
             try {
                 webSource.retrieve(frame);
@@ -35,8 +35,10 @@ public class Snapshot {
                 ex.printStackTrace();
             }
         }
-        System.out.println("yde");
-        count += 1;
+        count++;
+    }
+
+    public int getCount() {
         return count;
     }
 }
