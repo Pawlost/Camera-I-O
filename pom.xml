@@ -6,7 +6,7 @@
 
     <groupId>pawlost.camera</groupId>
     <artifactId>cameraInput</artifactId>
-    <version>0</version>
+    <version>0.1</version>
     <name>Camera Input</name>
 
     <properties>

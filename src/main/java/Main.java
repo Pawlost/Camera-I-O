@@ -8,12 +8,9 @@ public class Main {
         nu.pattern.OpenCV.loadShared();
     }
     public static void main(String[] args) {
-        File pictures= new File("./pictures/");
+        File pictures= new File("./pictures/kokot.jpg");
         pictures.mkdirs();
-        System.out.println(pictures.getPath());
-        try {
-            FileSaver.createFile(pictures.getPath()+"/kokot.txt", "kokot");
-        } catch (IOException ignore) {
-        }
+        Snapshot snapshot = new Snapshot(pictures, "jpg");
+        snapshot.takeSnapshot();
     }
 }
