@@ -11,53 +11,32 @@ import org.opencv.videoio.VideoCapture;
 
 
 public class Snapshot {
-
-
-    //Djava.library.path="C:\opencv\build\java\x86
-    // definitions
-    private DaemonThread myThread = null;
-    private File saveFile;
-    private String format;
-    int count = 0;
+    private String saveFile;
     private VideoCapture webSource = null;
 
     private Mat frame = new Mat();
-    private MatOfByte mem = new MatOfByte();
 
-    public Snapshot(File saveFile, String format) {
+    public Snapshot(String saveFile) {
         this.saveFile = saveFile;
-        this.format = format;
         webSource = new VideoCapture(0);
-        myThread = new DaemonThread();
-        Thread t = new Thread(myThread);
-        t.setDaemon(true);
-        t.start();
     }
 
-    public void takeSnapshot() {
-        myThread.run();
-    }
+    public int takeSnapshot(int count) {
+        System.out.println("tady");
+        if (webSource.grab()) {
+            try {
+                webSource.retrieve(frame);
+                Imgcodecs.imwrite(saveFile, frame);
+                System.out.println("Saving picture");
+                webSource.release();
 
-    /////////////////////////////////////////////////////////////////////
-    class DaemonThread implements Runnable {
-        public void run() {
-            synchronized (this) {
-                if (webSource.grab()) {
-                    try {
-                        webSource.retrieve(frame);
-                        Imgcodecs.imwrite(saveFile.getPath(), frame);
-                        BufferedImage buff = new BufferedImage(frame.width(), frame.height(), BufferedImage.TYPE_INT_BGR);
-                        ImageIO.write(buff, "jpg", saveFile);
-                        System.out.println("Saving picture");
-                        webSource.release();
-                        this.wait();
-
-                    } catch (Exception ex) {
-                        System.out.println("Error");
-                        ex.printStackTrace();
-                    }
-                }
+            } catch (Exception ex) {
+                System.out.println("Error");
+                ex.printStackTrace();
             }
         }
+        System.out.println("yde");
+        count += 1;
+        return count;
     }
 }
