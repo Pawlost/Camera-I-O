@@ -30,7 +30,7 @@ public class Main {
     private static void onKeyPressed(){
         File pictures = new File("./pictures/");
         pictures.mkdirs();
-        Snapshot snapshot = new Snapshot(pictures.getPath() + "/" + LocalDateTime.now() + ".jpg");
+        Snapshot snapshot = new Snapshot(pictures.getPath() + "/" + LocalDateTime.now() + ".png");
         try {
             snapshot.takeShot();
         } catch (Exception e) {
