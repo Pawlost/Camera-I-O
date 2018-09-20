@@ -1,11 +1,4 @@
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import javax.imageio.ImageIO;
-
 import org.opencv.core.Mat;
-import org.opencv.core.MatOfByte;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.videoio.VideoCapture;
 
@@ -22,18 +15,12 @@ public class Snapshot {
         webSource = new VideoCapture(0);
     }
 
-    public void takeShot() {
+    public void takeShot() throws Exception {
         if (webSource.grab()) {
-            try {
                 webSource.retrieve(frame);
                 Imgcodecs.imwrite(saveFile, frame);
                 System.out.println("Saving picture");
                 webSource.release();
-
-            } catch (Exception ex) {
-                System.out.println("Error");
-                ex.printStackTrace();
-            }
         }
         count++;
     }

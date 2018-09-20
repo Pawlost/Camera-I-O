@@ -1,14 +1,8 @@
-import org.opencv.core.Core;
-
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
-import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 public class Main {
     static {
@@ -23,25 +17,26 @@ public class Main {
 
 
         crack.addKeyListener(new KeyListener() {
-            public void keyTyped(KeyEvent keyEvent) {
-
-            }
+            public void keyTyped(KeyEvent keyEvent) { }
 
             public void keyPressed(KeyEvent keyEvent) {
                 onKeyPressed();
             }
 
-            public void keyReleased(KeyEvent keyEvent) {
-
-            }
+            public void keyReleased(KeyEvent keyEvent) { }
         });
     }
 
-    public static void onKeyPressed(){
+    private static void onKeyPressed(){
         File pictures = new File("./pictures/");
         pictures.mkdirs();
         Snapshot snapshot = new Snapshot(pictures.getPath() + "/" + LocalDateTime.now() + ".jpg");
-        snapshot.takeShot();
+        try {
+            snapshot.takeShot();
+        } catch (Exception e) {
+            System.out.println("Error with camera");
+            e.printStackTrace();
+        }
         System.out.println("Saved as "+LocalDateTime.now());
     }
 }
